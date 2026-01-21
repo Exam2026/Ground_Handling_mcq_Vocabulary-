@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanji Reading MCQ</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .quiz-box {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .meaning {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .option {
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+        }
+
+        .correct {
+            background: #c8f7c5;
+            border-color: green;
+        }
+
+        .wrong {
+            background: #f7c5c5;
+            border-color: red;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .submit-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .final-result {
+            background: #fff;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: none;
+        }
+
+        .final-result.show {
+            display: block;
+        }
+
+        .final-result h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .final-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2196F3;
+            margin: 20px 0;
+        }
+
+        .percentage {
+            font-size: 24px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>✈️ Kanji Reading MCQ - Ground Handling</h1>
+
+    <div class="quiz-box">
+        <div class="question">1. 航空機</div>
+        <div class="meaning">ගුවන් යානය (aircraft)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こうき (kouki)</div>
+        <div class="option" data-correct="true" onclick="check(this)">こうくうき (koukuuki)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こうこうき (koukouki)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">2. 準備</div>
+        <div class="meaning">සූදානම් කිරීම (prepare)</div>
+        <div class="option" data-correct="false" onclick="check(this)">じんび (jinbi)</div>
+        <div class="option" data-correct="true" onclick="check(this)">じゅんび (junbi)</div>
+        <div class="option" data-correct="false" onclick="check(this)">じゅび (jubi)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">3. 燃料の搭載</div>
+        <div class="meaning">ඉන්ධන පැටවීම (loading fuel)</div>
+        <div class="option" data-correct="true" onclick="check(this)">ねんりょうのとうさい (nenryou no tousai)</div>
+        <div class="option" data-correct="false" onclick="check(this)">ねんりょうのとさい (nenryou no tosai)</div>
+        <div class="option" data-correct="false" onclick="check(this)">ねんろうのとうさい (nenrou no tousai)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">4. 積み込み</div>
+        <div class="meaning">පැටවීම (loading)</div>
+        <div class="option" data-correct="false" onclick="check(this)">つみこみ (tsumikomi)</div>
+        <div class="option" data-correct="false" onclick="check(this)">つきこみ (tsukikomi)</div>
+        <div class="option" data-correct="true" onclick="check(this)">つみこみ (tsumikomi)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">5. 旅客機</div>
+        <div class="meaning">මගී ගුවන් යානය (passenger aircraft)</div>
+        <div class="option" data-correct="false" onclick="check(this)">りょかくき (ryokakuki)</div>
+        <div class="option" data-correct="true" onclick="check(this)">りょかくき (ryokakuki)</div>
+        <div class="option" data-correct="false" onclick="check(this)">りょきゃくき (ryokyakuki)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">6. 定期便</div>
+        <div class="meaning">නිත්‍ය සේවාව (regular service)</div>
+        <div class="option" data-correct="false" onclick="check(this)">ていきべん (teikiben)</div>
+        <div class="option" data-correct="false" onclick="check(this)">じょうきびん (joukibin)</div>
+        <div class="option" data-correct="true" onclick="check(this)">ていきびん (teikibin)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">7. 到着</div>
+        <div class="meaning">පැමිණීම (arrival)</div>
+        <div class="option" data-correct="true" onclick="check(this)">とうちゃく (touchaku)</div>
+        <div class="option" data-correct="false" onclick="check(this)">とうつく (toutsuku)</div>
+        <div class="option" data-correct="false" onclick="check(this)">とちゃく (tochaku)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">8. 出発</div>
+        <div class="meaning">පිටත්වීම (departure)</div>
+        <div class="option" data-correct="false" onclick="check(this)">しゅっぱち (shuppachi)</div>
+        <div class="option" data-correct="true" onclick="check(this)">しゅっぱつ (shuppatsu)</div>
+        <div class="option" data-correct="false" onclick="check(this)">でっぱつ (deppatsu)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">9. 取り卸し</div>
+        <div class="meaning">බෑම (unloading)</div>
+        <div class="option" data-correct="false" onclick="check(this)">とりおし (torioshi)</div>
+        <div class="option" data-correct="true" onclick="check(this)">とりおろし (torioroshi)</div>
+        <div class="option" data-correct="false" onclick="check(this)">とろおし (torooshi)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">10. 荷物</div>
+        <div class="meaning">ගමන් මලු (luggage)</div>
+        <div class="option" data-correct="false" onclick="check(this)">かもつ (kamotsu)</div>
+        <div class="option" data-correct="false" onclick="check(this)">にぶつ (nibutsu)</div>
+        <div class="option" data-correct="true" onclick="check(this)">にもつ (nimotsu)</div>
+
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">11. 貨物</div>
+        <div class="meaning">භාණ්ඩ (cargo)</div>
+        <div class="option" data-correct="true" onclick="check(this)">かもつ (kamotsu)</div>
+
+        <div class="option" data-correct="false" onclick="check(this)">にもつ (nimotsu)</div>
+        <div class="option" data-correct="false" onclick="check(this)">かぶつ (kabutsu)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">12. 乗客</div>
+        <div class="meaning">මගී (passenger)</div>
+        <div class="option" data-correct="true" onclick="check(this)">じょうきゃく (joukyaku)</div>
+        <div class="option" data-correct="false" onclick="check(this)">じょうかく (joukaku)</div>
+        <div class="option" data-correct="false" onclick="check(this)">のりきゃく (norikyaku)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">13. 快適</div>
+        <div class="meaning">සුවපහසු (comfortable)</div>
+        <div class="option" data-correct="false" onclick="check(this)">かいせき (kaiseki)</div>
+        <div class="option" data-correct="false" onclick="check(this)">けいてき (keiteki)</div>
+        <div class="option" data-correct="true" onclick="check(this)">かいてき (kaiteki)</div>
+
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">14. 目的地</div>
+        <div class="meaning">ගමනාන්තය (destination)</div>
+        <div class="option" data-correct="true" onclick="check(this)">もくてきち (mokutekichi)</div>
+        <div class="option" data-correct="false" onclick="check(this)">もくてきじ (mokutekiji)</div>
+        <div class="option" data-correct="false" onclick="check(this)">めてきち (metekichi)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">15. 危険物搭載</div>
+        <div class="meaning">භයානක භාණ්ඩ (dangerous goods)</div>
+        <div class="option" data-correct="false" onclick="check(this)">きけんぶつとさい (kikembutsu tosai)</div>
+        <div class="option" data-correct="true" onclick="check(this)">きけんぶつとうさい (kikenbutsu tousai)</div>
+        <div class="option" data-correct="false" onclick="check(this)">きけんもつとうさい (kikemmotsu tousai)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">16. 搭載重量</div>
+        <div class="meaning">පැටවූ බර (load weight)</div>
+        <div class="option" data-correct="false" onclick="check(this)">とさいじゅうりょう (tosai juuryou)</div>
+        <div class="option" data-correct="true" onclick="check(this)">とうさいじゅうりょう (tousai juuryou)</div>
+
+        <div class="option" data-correct="false" onclick="check(this)">とうさいじゅりょう (tousai juryou)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">17. 損傷</div>
+        <div class="meaning">හානිය (damage)</div>
+        <div class="option" data-correct="false" onclick="check(this)">そんじょう (sonjou)</div>
+        <div class="option" data-correct="true" onclick="check(this)">そんしょう (sonshou)</div>
+        <div class="option" data-correct="false" onclick="check(this)">そしょう (soshou)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">18. 機体</div>
+        <div class="meaning">ගුවන් යානයේ ශරීරය (airframe/body of aircraft)</div>
+        <div class="option" data-correct="false" onclick="check(this)">きだい (kidai)</div>
+
+        <div class="option" data-correct="true" onclick="check(this)">きたい (kitai)</div>
+        <div class="option" data-correct="false" onclick="check(this)">きてい (kitei)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">19. 整備士</div>
+        <div class="meaning">කාර්මික ශිල්පී (mechanic)</div>
+        <div class="option" data-correct="false" onclick="check(this)">せいびし (seibishi)</div>
+        <div class="option" data-correct="false" onclick="check(this)">せびし (sebishi)</div>
+        <div class="option" data-correct="true" onclick="check(this)">せいびし (seibishi)</div>
+
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">20. 管理情報</div>
+        <div class="meaning">පරිපාලන තොරතුරු (administrative information)</div>
+        <div class="option" data-correct="true" onclick="check(this)">かんりじょうほう (kanri jouhou)</div>
+        <div class="option" data-correct="false" onclick="check(this)">かんりじょほう (kanri johou)</div>
+        <div class="option" data-correct="false" onclick="check(this)">かりじょうほう (kari jouhou)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">21. 定時性</div>
+        <div class="meaning">කාලානුරූපී බව (punctuality)</div>
+        <div class="option" data-correct="false" onclick="check(this)">ていじせ (teijise)</div>
+        <div class="option" data-correct="true" onclick="check(this)">ていじせい (teijisei)</div>
+        <div class="option" data-correct="false" onclick="check(this)">ていしせい (teishisei)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">22. 航空輸送の要件</div>
+        <div class="meaning">ගුවන් ප්‍රවාහන අවශ්‍යතා (air transportation requirements)</div>
+        <div class="option" data-correct="true" onclick="check(this)">こうくうゆそうのようけん (koukuu yusou no youken)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こうくうゆそうのよけん (koukuu yusou no yoken)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こくうゆそうのようけん (kokuu yusou no youken)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">23. 国際航空運送協会</div>
+        <div class="meaning">ජාත්‍යන්තර ගුවන් ප්‍රවාහන සංගමය (IATA)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こくさいこうくううんそうきょかい (kokusai koukuu unsou kyokai)
+        </div>
+        <div class="option" data-correct="false" onclick="check(this)">こくせいこうくううんそうきょうかい (kokusei koukuu unsou kyoukai)
+        </div>
+        <div class="option" data-correct="true" onclick="check(this)">こくさいこうくううんそうきょうかい (kokusai koukuu unsou kyoukai)
+        </div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">24. 航空会社</div>
+        <div class="meaning">ගුවන් සේවා ආයතනය (airline)</div>
+        <div class="option" data-correct="true" onclick="check(this)">こうくうがいしゃ (koukuu gaisha)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こうくうかいしゃ (koukuu kaisha)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こくうがいしゃ (kokuu gaisha)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="quiz-box">
+        <div class="question">25. 工程管理</div>
+        <div class="meaning">ක්‍රියාවලි පාලනය (process control)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こうていかり (koutei kari)</div>
+        <div class="option" data-correct="true" onclick="check(this)">こうていかんり (koutei kanri)</div>
+        <div class="option" data-correct="false" onclick="check(this)">こていかんり (kotei kanri)</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="submit-section">
+        <button class="submit-btn" id="submitBtn" onclick="submitQuiz()">📝 Submit Quiz</button>
+    </div>
+
+    <div class="final-result" id="finalResult">
+        <h2>🎉 Quiz Complete!</h2>
+        <div class="final-score" id="finalScore">0 / 50</div>
+        <div class="percentage" id="percentage">0%</div>
+    </div>
+
+    <script>
+        let totalScore = 0;
+        let questionsAnswered = 0;
+        const totalQuestions = 25;
+        const pointsPerQuestion = 2;
+
+        function check(selected) {
+            let box = selected.parentElement;
+            let options = box.querySelectorAll(".option");
+            let result = box.querySelector(".result");
+
+            // Check if already answered
+            if (options[0].style.pointerEvents === "none") {
+                return;
+            }
+
+            questionsAnswered++;
+
+            options.forEach(opt => {
+                opt.style.pointerEvents = "none";
+                if (opt.dataset.correct === "true") {
+                    opt.classList.add("correct");
+                }
+            });
+
+            if (selected.dataset.correct === "true") {
+                totalScore += pointsPerQuestion;
+                result.innerHTML = "✅ Correct! (+2 points)";
+                result.style.color = "green";
+            } else {
+                selected.classList.add("wrong");
+                result.innerHTML = "❌ Wrong! (+0 points) Correct answer shown in green.";
+                result.style.color = "red";
+            }
+        }
+
+        function submitQuiz() {
+            const finalResult = document.getElementById("finalResult");
+            const maxScore = totalQuestions * pointsPerQuestion;
+            const percentScore = ((totalScore / maxScore) * 100).toFixed(1);
+
+            let grade = "";
+            let gradeColor = "";
+
+            if (percentScore >= 90) {
+                grade = "Excellent! 🌟";
+                gradeColor = "#4CAF50";
+            } else if (percentScore >= 75) {
+                grade = "Very Good! 👍";
+                gradeColor = "#2196F3";
+            } else if (percentScore >= 60) {
+                grade = "Good! 😊";
+                gradeColor = "#FF9800";
+            } else if (percentScore >= 50) {
+                grade = "Pass ✓";
+                gradeColor = "#FFC107";
+            } else {
+                grade = "Keep Practicing! 📚";
+                gradeColor = "#F44336";
+            }
+
+            finalResult.innerHTML = `
+                <h2>🎉 Quiz Complete!</h2>
+                <div class="final-score">${totalScore} / ${maxScore}</div>
+                <div class="percentage">${percentScore}%</div>
+                <h3 style="color: ${gradeColor}; margin-top: 20px;">${grade}</h3>
+                <p style="color: #666; margin-top: 15px;">Questions Answered: ${questionsAnswered} / ${totalQuestions}</p>
+            `;
+
+            finalResult.classList.add("show");
+            finalResult.scrollIntoView({ behavior: "smooth" });
+
+            // Disable submit button
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("submitBtn").textContent = "✓ Submitted";
+        }
+    </script>
+
+</body>
+
+</html>
