@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanji Reading MCQ</title>
+    <title>Kanji Reading MCQ - Ground Handling</title>
 
     <style>
         body {
@@ -13,6 +13,10 @@
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         h1 {
@@ -113,11 +117,6 @@
             display: block;
         }
 
-        .final-result h2 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
         .final-score {
             font-size: 48px;
             font-weight: bold;
@@ -129,12 +128,36 @@
             font-size: 24px;
             color: #666;
         }
+
+        #dev-warning {
+            position: fixed;
+            inset: 0;
+            background: rgba(200, 0, 0, 0.92);
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            pointer-events: none;
+            display: none;
+            text-align: center;
+            line-height: 1.4;
+            padding: 20px;
+        }
     </style>
 </head>
 
 <body>
 
+    <div id="dev-warning">
+        මෙම පිටුව Inspect කිරීම / පිටපත් කිරීම / වෙනස් කිරීම තහනම්!<br>
+        සියලු ක්‍රියාකාරකම් monitor වෙනවා • විභාගයේ නීති රීති අනුගමනය කරන්න
+    </div>
+
     <h1>✈️ Kanji Reading MCQ - Ground Handling</h1>
+
 
     <div class="quiz-box">
         <div class="question">1. 航空機</div>
@@ -360,7 +383,6 @@
         <div class="option" data-correct="false" onclick="check(this)">こくうがいしゃ (kokuu gaisha)</div>
         <div class="result"></div>
     </div>
-
     <div class="quiz-box">
         <div class="question">25. 工程管理</div>
         <div class="meaning">ක්‍රියාවලි පාලනය (process control)</div>
@@ -381,6 +403,44 @@
     </div>
 
     <script>
+        let warningShown = false;  // මේකෙන් warning එක එක පාරයි පෙන්නන්නේ
+
+        function showWarning() {
+            if (warningShown) return;  // එක පාරක් පෙන්නල තියෙනවනම් ආයෙත් පෙන්නන්න එපා
+            warningShown = true;
+
+            const warn = document.getElementById('dev-warning');
+            warn.style.display = 'flex';
+            setTimeout(() => {
+                warn.style.display = 'none';
+            }, 6000);  // 6 seconds පෙන්නල අතුරුදහන් වෙනවා
+        }
+
+        // Right click block
+        document.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            showWarning();
+        });
+
+        // Keyboard shortcuts block
+        document.addEventListener('keydown', e => {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j' || e.key.toLowerCase() === 'c')) ||
+                (e.ctrlKey && e.key.toLowerCase() === 'u') ||
+                (e.ctrlKey && e.key.toLowerCase() === 's') ||
+                (e.ctrlKey && e.key.toLowerCase() === 'a') ||
+                e.key === 'F5' ||
+                (e.ctrlKey && e.key.toLowerCase() === 'r') ||
+                (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'r')
+            ) {
+                e.preventDefault();
+                showWarning();
+                return false;
+            }
+        });
+
+        // Original quiz logic (ඔයාගේ එකම)
         let totalScore = 0;
         let questionsAnswered = 0;
         const totalQuestions = 25;
@@ -391,10 +451,7 @@
             let options = box.querySelectorAll(".option");
             let result = box.querySelector(".result");
 
-            // Check if already answered
-            if (options[0].style.pointerEvents === "none") {
-                return;
-            }
+            if (options[0].style.pointerEvents === "none") return;
 
             questionsAnswered++;
 
@@ -411,7 +468,7 @@
                 result.style.color = "green";
             } else {
                 selected.classList.add("wrong");
-                result.innerHTML = "❌ Wrong! (+0 points) Correct answer shown in green.";
+                result.innerHTML = "❌ Wrong! Correct answer shown in green.";
                 result.style.color = "red";
             }
         }
@@ -442,17 +499,16 @@
             }
 
             finalResult.innerHTML = `
-                <h2>🎉 Quiz Complete!</h2>
-                <div class="final-score">${totalScore} / ${maxScore}</div>
-                <div class="percentage">${percentScore}%</div>
-                <h3 style="color: ${gradeColor}; margin-top: 20px;">${grade}</h3>
-                <p style="color: #666; margin-top: 15px;">Questions Answered: ${questionsAnswered} / ${totalQuestions}</p>
-            `;
+        <h2>🎉 Quiz Complete!</h2>
+        <div class="final-score">${totalScore} / ${maxScore}</div>
+        <div class="percentage">${percentScore}%</div>
+        <h3 style="color: ${gradeColor}; margin-top: 20px;">${grade}</h3>
+        <p style="color: #666; margin-top: 15px;">Questions Answered: ${questionsAnswered} / ${totalQuestions}</p>
+    `;
 
             finalResult.classList.add("show");
             finalResult.scrollIntoView({ behavior: "smooth" });
 
-            // Disable submit button
             document.getElementById("submitBtn").disabled = true;
             document.getElementById("submitBtn").textContent = "✓ Submitted";
         }
